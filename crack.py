@@ -37,8 +37,9 @@ def parallel_hashing_and_verification(passwords, hashed_password, max_workers, c
             memory = f'memory: {color_info}{psutil.virtual_memory().percent}%{color}'
             elapsed_time = time.time() - start_time
             hps = count / elapsed_time
+            estimated_time = (((total - count) / hps) % 3600) // 60
             hashes_per_second = f'hashes/sec: {color_info}{hps:.2f}{color}'
-            estimated_time = f'estimated time: {color_info}{((total - count) / hps / 60):.2f}min{color}'
+            estimated_time = f'estimated time: {color_info}{estimated_time:.2f}min{color}'
             curr_pass = f'password: {color_info}{password}{color}'
             suffix = f'| {color_info}{count}/{total}{color} | {cpu} | {memory} | {hashes_per_second} | {estimated_time} | {curr_pass}'
             log(count, total, suffix=suffix)
